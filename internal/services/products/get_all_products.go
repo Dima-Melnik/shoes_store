@@ -1,6 +1,7 @@
 package products
 
 import (
+	"errors"
 	"strconv"
 
 	"github.com/Dima-Melnik/shoes_store/internal/db"
@@ -58,6 +59,10 @@ func (p *ProductsServices) GetAllProducts(c *gin.Context) ([]models.Product, err
 	if result.Error != nil {
 		utils.SendLogrusService("getting all products", c, result.Error, "GetAllProducts")
 		return nil, result.Error
+	}
+
+	if len(allProducts) == 0 {
+		return nil, errors.New("products is empty")
 	}
 
 	return allProducts, nil
