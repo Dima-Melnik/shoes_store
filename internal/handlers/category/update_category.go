@@ -1,28 +1,27 @@
-package products
+package category
 
 import (
 	"net/http"
 
 	"github.com/Dima-Melnik/shoes_store/internal/models"
 	"github.com/Dima-Melnik/shoes_store/internal/utils"
-
 	"github.com/gin-gonic/gin"
 )
 
-func UpdateProduct(c *gin.Context) {
+func UpdateCategory(c *gin.Context) {
 	id, ok := utils.CheckCorrectID(c)
 	if !ok {
 		return
 	}
 
-	var updatedProduct *models.Product
+	var updatedCategory *models.Category
 
-	product, err := productsServices.UpdateProduct(c, id, updatedProduct)
+	category, err := categoryServices.UpdateCategory(c, updatedCategory, id)
 	if err != nil {
-		utils.SendLoggerHandlers("update product", err, "UpdateProduct")
+		utils.SendLoggerHandlers("update category", err, "UpdateCategory")
 		utils.SendError(c, http.StatusBadRequest, err.Error())
 		return
 	}
 
-	c.JSON(http.StatusOK, product)
+	c.JSON(http.StatusOK, category)
 }

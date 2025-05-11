@@ -1,25 +1,24 @@
-package products
+package category
 
 import (
 	"net/http"
 
 	"github.com/Dima-Melnik/shoes_store/internal/utils"
-
 	"github.com/gin-gonic/gin"
 )
 
-func DeleteProduct(c *gin.Context) {
+func DeleteCategory(c *gin.Context) {
 	id, ok := utils.CheckCorrectID(c)
 	if !ok {
 		return
 	}
 
-	err := productsServices.DeleteProduct(c, id)
+	err := categoryServices.DeleteCategory(c, id)
 	if err != nil {
-		utils.SendLoggerHandlers("delete product", err, "DeleteProduct")
+		utils.SendLoggerHandlers("delete category", err, "DeleteCategory")
 		utils.SendError(c, http.StatusBadRequest, err.Error())
 		return
 	}
 
-	c.JSON(http.StatusNoContent, gin.H{"message": "Successfully deleted"})
+	c.JSON(http.StatusNoContent, gin.H{"message": "successfully deleted"})
 }

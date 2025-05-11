@@ -15,7 +15,7 @@ func CreateProduct(c *gin.Context) {
 	createProduct, err := productsServices.CreateProduct(c, createdProduct)
 	if err != nil {
 		utils.SendLoggerHandlers("create product", err, "CreateProduct")
-		utils.SendError(c, http.StatusBadRequest, "Error in handler CreateProduct")
+		utils.SendError(c, http.StatusBadRequest, err.Error())
 		return
 	}
 

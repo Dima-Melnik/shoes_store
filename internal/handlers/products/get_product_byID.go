@@ -17,7 +17,7 @@ func GetProductByID(c *gin.Context) {
 	product, err := productsServices.GetProductById(c, id)
 	if err != nil {
 		utils.SendLoggerHandlers("product by id", err, "GetProductByID")
-		utils.SendError(c, http.StatusInternalServerError, "Error in handler GetProductByID")
+		utils.SendError(c, http.StatusInternalServerError, err.Error())
 		return
 	}
 

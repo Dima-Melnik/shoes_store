@@ -1,28 +1,27 @@
-package products
+package attribute
 
 import (
 	"net/http"
 
 	"github.com/Dima-Melnik/shoes_store/internal/models"
 	"github.com/Dima-Melnik/shoes_store/internal/utils"
-
 	"github.com/gin-gonic/gin"
 )
 
-func UpdateProduct(c *gin.Context) {
+func UpdateAttribute(c *gin.Context) {
 	id, ok := utils.CheckCorrectID(c)
 	if !ok {
 		return
 	}
 
-	var updatedProduct *models.Product
+	var updatedAttribute *models.Attribute
 
-	product, err := productsServices.UpdateProduct(c, id, updatedProduct)
+	attribute, err := attributeServices.UpdateAttribute(c, id, updatedAttribute)
 	if err != nil {
-		utils.SendLoggerHandlers("update product", err, "UpdateProduct")
+		utils.SendLoggerHandlers("update attribute", err, "UpdateAttribute")
 		utils.SendError(c, http.StatusBadRequest, err.Error())
 		return
 	}
 
-	c.JSON(http.StatusOK, product)
+	c.JSON(http.StatusOK, attribute)
 }
