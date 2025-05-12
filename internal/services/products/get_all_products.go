@@ -55,7 +55,7 @@ func (p *ProductsServices) GetAllProducts(c *gin.Context) ([]models.Product, err
 		}
 	}
 
-	result := query.Limit(limit).Offset(offset).Find(&allProducts)
+	result := query.Limit(limit).Offset(offset).Order("create_at DESC").Preload("Category").Preload("Attributes").Find(&allProducts)
 	if result.Error != nil {
 		utils.SendLogrusService("getting all products", c, result.Error, "GetAllProducts")
 		return nil, result.Error
